@@ -1,12 +1,7 @@
 import DashboardPage from '#/features/dashboard/DashboardPage'
 import { provisionUser } from '#/features/auth/auth.queries'
-import { apiFetch } from '#/lib/api'
+import { getUserBooks } from '#/features/books/books.api'
 import { createFileRoute } from '@tanstack/react-router'
-
-interface UserBook {
-  id: number
-  [key: string]: unknown
-}
 
 // Note the trailing slash, which is used to target index routes
 export const Route = createFileRoute('/_authenticated/dashboard/')({
@@ -23,7 +18,7 @@ export const Route = createFileRoute('/_authenticated/dashboard/')({
 
     const userbooks = await queryClient.ensureQueryData({
       queryKey: ['userbooks', appUser.id],
-      queryFn: () => apiFetch<UserBook[]>('/userbooks', token),
+      queryFn: () => getUserBooks(token),
     })
 
     return { appUser, userbooks }
