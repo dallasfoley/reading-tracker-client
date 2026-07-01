@@ -1,4 +1,5 @@
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
+import type { Router } from '@tanstack/react-router'
 import { createContext, useContext } from 'react'
 
 export interface Auth0ContextType {
@@ -7,17 +8,28 @@ export interface Auth0ContextType {
   login: () => void
   logout: () => void
   isLoading: boolean
+  getAccessToken: () => Promise<string | undefined>
 }
 
 const Auth0Context = createContext<Auth0ContextType | undefined>(undefined)
 
-export function Auth0Wrapper({ children }: { children: React.ReactNode }) {
+export function Auth0Wrapper({
+  children,
+  router,
+}: {
+  children: React.ReactNode
+  router: Router<any, any>
+}) {
   return (
     <Auth0Provider
       domain={import.meta.env.VITE_AUTH0_DOMAIN}
       clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
       authorizationParams={{
         redirect_uri: window.location.origin,
+        audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+      }}
+      onRedirectCallback={async (appState) => {
+        router.navigate({ to: appState?.returnTo || '/dashboard' })
       }}
     >
       <Auth0ContextProvider>{children}</Auth0ContextProvider>
@@ -26,8 +38,14 @@ export function Auth0Wrapper({ children }: { children: React.ReactNode }) {
 }
 
 function Auth0ContextProvider({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, user, loginWithRedirect, logout, isLoading } =
-    useAuth0()
+  const {
+    isAuthenticated,
+    user,
+    loginWithRedirect,
+    logout,
+    isLoading,
+    getAccessTokenSilently,
+  } = useAuth0()
 
   const contextValue = {
     isAuthenticated,
@@ -36,6 +54,7 @@ function Auth0ContextProvider({ children }: { children: React.ReactNode }) {
     logout: () =>
       logout({ logoutParams: { returnTo: window.location.origin } }),
     isLoading,
+    getAccessToken: () => getAccessTokenSilently(),
   }
 
   return (

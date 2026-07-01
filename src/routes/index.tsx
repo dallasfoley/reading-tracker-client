@@ -1,4 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-import Home from '@/features/hero/components/Home'
+import HeroPage from '#/features/hero/HeroPage'
 
-export const Route = createFileRoute('/')({ component: Home })
+export const Route = createFileRoute('/')({ component: HeroPage })

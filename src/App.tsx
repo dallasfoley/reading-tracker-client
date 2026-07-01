@@ -40,7 +40,7 @@ function InnerApp() {
 
 function App() {
   return (
-    <Auth0Wrapper>
+    <Auth0Wrapper router={router}>
       <InnerApp />
     </Auth0Wrapper>
   )
