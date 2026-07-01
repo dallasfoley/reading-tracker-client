@@ -4,13 +4,22 @@ import { Auth0Wrapper, useAuth0Context } from './features/auth/auth0.tsx'
 import { routeTree } from './routeTree.gen.ts'
 
 const queryClient = new QueryClient()
+const initialAuthContext = {
+  isAuthenticated: false,
+  user: undefined,
+  login: () => {},
+  logout: () => {},
+  isLoading: true,
+  getAccessToken: async () => undefined,
+}
+
 const router = createRouter({
   routeTree,
   defaultPreload: 'intent',
   scrollRestoration: true,
   context: {
     queryClient,
-    auth: undefined!,
+    auth: initialAuthContext,
   },
 })
 
@@ -33,7 +42,7 @@ function InnerApp() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} context={{ auth }} />
+      <RouterProvider router={router} context={{ queryClient, auth }} />
     </QueryClientProvider>
   )
 }

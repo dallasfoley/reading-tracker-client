@@ -1,3 +1,13 @@
-import { queryOptions } from '@tanstack/react-query'
+import { apiFetch } from '#/lib/api'
 
-export const authQueries = {}
+export interface AppUser {
+  id: number
+  email: string
+  createdAt: string
+}
+
+export function provisionUser(token: string) {
+  return apiFetch<AppUser>('/auth/provision', token, {
+    method: 'POST',
+  })
+}
