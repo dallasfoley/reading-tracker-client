@@ -26,10 +26,12 @@ export default function UserbooksList() {
 
   if (userbooks.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-zinc-700 p-8 text-center">
-        <BookOpen className="mx-auto mb-3 size-8 text-zinc-500" />
-        <h4 className="text-lg font-medium text-zinc-100">No books yet</h4>
-        <p className="mt-1 text-sm text-zinc-400">
+      <div className="rounded-lg border border-dashed border-border bg-card/60 p-8 text-center">
+        <BookOpen className="mx-auto mb-3 size-8 text-muted-foreground" />
+        <h4 className="text-lg font-medium text-card-foreground">
+          No books yet
+        </h4>
+        <p className="mt-1 text-sm text-muted-foreground">
           Browse for a book and add it to start tracking your reading.
         </p>
       </div>
@@ -126,25 +128,25 @@ function UserBookCard({ userbook }: { userbook: UserBook }) {
     ratingMutation.error?.message
 
   return (
-    <li className="grid gap-4 rounded-lg border border-zinc-800 bg-zinc-950/40 p-4 sm:grid-cols-[6rem_1fr]">
+    <li className="grid gap-4 rounded-lg border border-border bg-background/60 p-4 transition-colors hover:bg-muted/30 sm:grid-cols-[6rem_1fr]">
       {userbook.bookCoverUrl ? (
         <img
           alt={`${userbook.bookTitle} cover`}
-          className="h-36 w-24 rounded-md object-cover ring-1 ring-zinc-700"
+          className="h-36 w-24 rounded-md object-cover ring-1 ring-border"
           src={userbook.bookCoverUrl}
         />
       ) : (
-        <div className="flex h-36 w-24 items-center justify-center rounded-md bg-zinc-800 ring-1 ring-zinc-700">
-          <BookOpen className="size-7 text-zinc-500" />
+        <div className="flex h-36 w-24 items-center justify-center rounded-md bg-muted ring-1 ring-border">
+          <BookOpen className="size-7 text-muted-foreground" />
         </div>
       )}
 
       <div className="min-w-0">
         <div className="flex flex-col gap-1">
-          <h4 className="line-clamp-2 font-medium text-zinc-100">
+          <h4 className="line-clamp-2 font-medium text-foreground">
             {userbook.bookTitle}
           </h4>
-          <p className="line-clamp-1 text-sm text-zinc-400">
+          <p className="line-clamp-1 text-sm text-muted-foreground">
             {userbook.bookAuthor}
           </p>
         </div>
@@ -153,7 +155,6 @@ function UserBookCard({ userbook }: { userbook: UserBook }) {
           <Label>
             Status
             <Select
-              className="border-zinc-700 bg-zinc-950 text-zinc-100"
               disabled={statusMutation.isPending}
               onChange={(event) =>
                 handleStatusChange(event.target.value as ReadingStatus)
@@ -172,7 +173,7 @@ function UserBookCard({ userbook }: { userbook: UserBook }) {
             Current Page
             <div className="flex gap-2">
               <Input
-                className="min-w-0 flex-1 border-zinc-700 bg-zinc-950 text-zinc-100"
+                className="min-w-0 flex-1"
                 inputMode="numeric"
                 min={0}
                 onChange={(event) => setCurrentPage(event.target.value)}
@@ -201,7 +202,7 @@ function UserBookCard({ userbook }: { userbook: UserBook }) {
                 return (
                   <Button
                     aria-label={`Rate ${userbook.bookTitle} ${ratingOption} stars`}
-                    className="text-zinc-400 data-[selected=true]:text-yellow-300"
+                    className="text-muted-foreground data-[selected=true]:border-yellow-400/50 data-[selected=true]:bg-yellow-400/10 data-[selected=true]:text-yellow-300"
                     data-selected={isSelected}
                     disabled={ratingMutation.isPending}
                     key={ratingOption}

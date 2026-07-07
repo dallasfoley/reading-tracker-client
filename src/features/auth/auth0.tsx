@@ -1,11 +1,14 @@
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
-import type { Router } from '@tanstack/react-router'
 import { createContext, useContext } from 'react'
+
+type LoginOptions = Parameters<
+  ReturnType<typeof useAuth0>['loginWithRedirect']
+>[0]
 
 export interface Auth0ContextType {
   isAuthenticated: boolean
   user: any
-  login: () => void
+  login: (options?: LoginOptions) => Promise<void>
   logout: () => void
   isLoading: boolean
   getAccessToken: () => Promise<string | undefined>
@@ -15,10 +18,8 @@ const Auth0Context = createContext<Auth0ContextType | undefined>(undefined)
 
 export function Auth0Wrapper({
   children,
-  router,
 }: {
   children: React.ReactNode
-  router: Router<any, any>
 }) {
   return (
     <Auth0Provider
@@ -28,8 +29,12 @@ export function Auth0Wrapper({
         redirect_uri: window.location.origin,
         audience: import.meta.env.VITE_AUTH0_AUDIENCE,
       }}
-      onRedirectCallback={async (appState) => {
-        router.navigate({ to: appState?.returnTo || '/dashboard' })
+      onRedirectCallback={(appState) => {
+        window.history.replaceState(
+          {},
+          document.title,
+          appState?.returnTo || '/dashboard',
+        )
       }}
     >
       <Auth0ContextProvider>{children}</Auth0ContextProvider>

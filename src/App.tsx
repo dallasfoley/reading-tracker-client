@@ -7,7 +7,7 @@ const queryClient = new QueryClient()
 const initialAuthContext = {
   isAuthenticated: false,
   user: undefined,
-  login: () => {},
+  login: async () => {},
   logout: () => {},
   isLoading: true,
   getAccessToken: async () => undefined,
@@ -49,7 +49,7 @@ function InnerApp() {
 
 function App() {
   return (
-    <Auth0Wrapper router={router}>
+    <Auth0Wrapper>
       <InnerApp />
     </Auth0Wrapper>
   )

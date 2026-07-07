@@ -11,9 +11,9 @@ export default function UserGreeting() {
     (appUser.email.endsWith('@placeholder.local') ? 'reader' : appUser.email)
 
   return (
-    <div className="rounded-lg border border-zinc-800 bg-zinc-900/70 px-4 py-3">
+    <div className="rounded-lg border border-border bg-card px-4 py-3 shadow-sm">
       <Suspense fallback={<UserGreetingSkeleton />}>
-        <h2 className="text-lg font-medium text-zinc-100">
+        <h2 className="text-lg font-medium text-card-foreground">
           Welcome back, {displayName}
         </h2>
       </Suspense>
@@ -24,7 +24,7 @@ export default function UserGreeting() {
 function UserGreetingSkeleton() {
   return (
     <div className="animate-pulse">
-      <div className="h-6 w-64 rounded bg-zinc-700"></div>
+      <div className="h-6 w-64 rounded bg-muted"></div>
     </div>
   )
 }

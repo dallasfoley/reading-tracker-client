@@ -3,6 +3,7 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import '../styles.css'
+import { RouteError } from '#/components/layout/RouteError'
 import type { QueryClient } from '@tanstack/react-query'
 import type { Auth0ContextType } from '../features/auth/auth0.tsx'
 
@@ -13,6 +14,9 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: RootComponent,
+  errorComponent: ({ error, reset }) => (
+    <RouteError error={error} reset={reset} />
+  ),
 })
 
 function RootComponent() {
