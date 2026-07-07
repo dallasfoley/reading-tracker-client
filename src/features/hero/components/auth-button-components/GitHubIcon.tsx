@@ -1,7 +1,22 @@
+interface GithubIconProps {
+  size?: number
+  className?: string
+  color?: string
+  strokeWidth?: number
+  background?: string
+  opacity?: number
+  rotation?: number
+  shadow?: number
+  flipHorizontal?: boolean
+  flipVertical?: boolean
+  padding?: number
+}
+
 const GithubIcon = ({
-  size = undefined,
-  color = '#000000',
-  strokeWidth = 2,
+  size = 22,
+  className,
+  color = 'none',
+  strokeWidth = 0,
   background = 'transparent',
   opacity = 1,
   rotation = 0,
@@ -9,7 +24,7 @@ const GithubIcon = ({
   flipHorizontal = false,
   flipVertical = false,
   padding = 0,
-}) => {
+}: GithubIconProps) => {
   const transforms = []
   if (rotation !== 0) transforms.push(`rotate(${rotation}deg)`)
   if (flipHorizontal) transforms.push('scaleX(-1)')
@@ -25,6 +40,7 @@ const GithubIcon = ({
       viewBox={viewBox}
       width={size}
       height={size}
+      className={className}
       fill="none"
       stroke={color}
       strokeWidth={strokeWidth}

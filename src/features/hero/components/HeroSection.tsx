@@ -3,15 +3,6 @@ import Heading from './Heading'
 export default function HeroSection() {
   return (
     <div className="max-w-4xl mx-auto mb-12">
-      {/* Book Icon */}
-      <div className="my-8 flex justify-center">
-        <div className="relative">
-          <div className="w-16 h-16 bg-linear-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center transform rotate-12 shadow-lg">
-            {/* <MdMenuBook className="w-8 h-8 text-white" /> */}
-          </div>
-        </div>
-      </div>
-
       <Heading />
 
       {/* Subtitle */}

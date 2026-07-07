@@ -38,7 +38,7 @@ export default function AuthButtons() {
           <Spinner className="h-5 w-5 text-zinc-950" />
         ) : (
           <>
-            Sign in
+            Get Started
             <SvgArrow />
           </>
         )}
@@ -74,7 +74,7 @@ export default function AuthButtons() {
           ) : (
             <>
               Login with GitHub
-              <GithubIcon color="#ffffff" />
+              <GithubIcon className="ml-1 size-6" color="#ffffff" size={24} />
             </>
           )}
         </Button>
@@ -89,7 +89,7 @@ export default function AuthButtons() {
           variant="outline"
         >
           Login with Google
-          <GoogleIcon />
+          <GoogleIcon className="ml-1 size-6" size={24} />
         </Button>
       </div>
     </div>
